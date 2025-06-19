@@ -68,10 +68,19 @@ jobs:
         run: uv python install ${{ matrix.python-version }}
       - name: Install Python dependencies
         run: make dependencies
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.12.0
+        with:
+          mongodb-version: '8.0'
+          mongodb-username: admin
+          mongodb-password: admin
+          mongodb-db: wire-scout
       - name: Unit test
         run: make unit
         env:
           LOG_LEVEL: ERROR
+          MONGO_URI: mongodb://admin:admin@localhost:27017
+          MONGO_DATABASE: wire-scout
 
       - name: Report Coverage
         run: uv run coverage lcov
