@@ -55,3 +55,8 @@ class TestMongoRepository(unittest.TestCase):
         with self.subTest("With no results"):
             retrieved_articles = self.repo.get_articles(query={"url": "non-existent-url"})
             self.assertEqual(list(retrieved_articles), [])
+
+        with self.subTest("With skip and limit"):
+            retrieved_articles = list(self.repo.get_articles(query={}, skip=2, limit=2))
+            self.assertEqual(len(retrieved_articles), 2)
+            self.assertArticlesEqual(retrieved_articles, articles[2:4])

@@ -21,6 +21,8 @@ def get_articles(
     start_date: datetime | None = Query(None, description="Start date for filtering"),
     end_date: datetime | None = Query(None, description="End date for filtering"),
     news_provider: str | None = Query(None, description="News provider"),
+    skip: int = Query(0, description="Number of articles to skip"),
+    limit: int = Query(50, description="Number of articles to return"),
 ):
     query: dict[str, Any] = {}
     if title:
@@ -39,5 +41,5 @@ def get_articles(
         if date_filter:
             query["date"] = date_filter
 
-    articles = db.get_articles(query)
+    articles = db.get_articles(query, skip=skip, limit=limit)
     return ArticleListResponse.from_articles(articles=articles)

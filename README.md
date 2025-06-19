@@ -2,11 +2,6 @@
 [![Maintainability](https://qlty.sh/badges/7614d4be-0c5f-475d-9508-03b8dd4d1072/maintainability.svg)](https://qlty.sh/gh/joaodaher/projects/wire-scout)
 [![Code Coverage](https://qlty.sh/badges/7614d4be-0c5f-475d-9508-03b8dd4d1072/test_coverage.svg)](https://qlty.sh/gh/joaodaher/projects/wire-scout)
 
-[![python](https://img.shields.io/badge/python-3.13-blue.svg)]()
-[![FastAPI](https://img.shields.io/badge/FastAPI-green.svg)]()
-[![MongoDB](https://img.shields.io/badge/MongoDB-green.svg)]()
-[![Docker](https://img.shields.io/badge/Docker-blue.svg)]()
-
 # Wire Scout
 
 ## Overview
@@ -15,13 +10,28 @@ Wire Scout is a Python-based web scraping application designed to extract and st
 
 ## Tech Stack
 
-- **Backend**: Python 3.13, FastAPI
-- **Database**: MongoDB
-- **Web Scraping**: BeautifulSoup4, Requests, lxml
-- **Containerization**: Docker, Docker Compose
-- **Dependency Management**: uv
-- **Testing**: Pytest, httpx, factory-boy
-- **Linting & Formatting**: ruff
+### Server & Database
+[![python](https://img.shields.io/badge/python-3.13-blue.svg?logo=python)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.115-green.svg?logo=fastapi)](https://fastapi.tiangolo.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-8.0-green.svg?logo=mongodb)](https://www.mongodb.com/)
+
+### Web Scraping & Tooling
+[![BeautifulSoup4](https://img.shields.io/badge/BeautifulSoup-4.12-orange.svg?logo=python&logoColor=white)](https://www.crummy.com/software/BeautifulSoup/)
+[![Docker](https://img.shields.io/badge/Docker-4-blue.svg?logo=docker)](https://www.docker.com/)
+[![uv](https://img.shields.io/badge/uv-0.7-blue.svg?logo=uv)](https://github.com/astral-sh/uv)
+[![pytest](https://img.shields.io/badge/pytest-7.4-blue.svg?logo=pytest)](https://pytest.org/)
+[![ruff](https://img.shields.io/badge/ruff-0.12-blue.svg?logo=ruff)](https://github.com/astral-sh/ruff)
+
+### Frontend Framework & UI
+[![node](https://img.shields.io/badge/node-20-green.svg?logo=node.js)](https://nodejs.org/en)
+[![React](https://img.shields.io/badge/react-18-blue.svg?logo=react)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/vite-5-blue.svg?logo=vite)](https://vitejs.dev/)
+[![Material-UI](https://img.shields.io/badge/MUI-5-blue.svg?logo=mui)](https://mui.com/)
+
+### Styling & Utilities
+[![Axios](https://img.shields.io/badge/axios-1.4-purple.svg?logo=axios)](https://axios-http.com/)
+[![npm](https://img.shields.io/badge/npm-10-red.svg?logo=npm)](https://www.npmjs.com/)
+[![Emotion](https://img.shields.io/badge/Emotion-11-pink.svg)](https://emotion.sh/)
 
 ## Architecture
 
@@ -30,6 +40,7 @@ The application is composed of three main services:
 1.  **Crawler**: a Python script that can periodically scrapes PR Newswire for new articles. It parses the HTML and stores the structured data into the MongoDB database.
 2.  **API**: a FastAPI server that exposes endpoints to interact with the data stored in the database.
 3.  **Storage**: A MongoDB instance that serves as the data store for the articles.
+4.  **Web**: A React-based frontend that provides a user interface to search and view the articles.
 
 ![image](https://github.com/user-attachments/assets/0c8bd07f-bc69-4ad4-ad7f-63108135609b)
 
@@ -59,10 +70,11 @@ This is the easiest way to get the application up and running.
     ```bash
     make run-all
     ```
-    This command will start the API server, the MongoDB database, and run the crawler once.
+    This command will start the API server, the MongoDB database, the web UI, and run the crawler once.
 
-3.  **Access the API:**
-    The API will be available at [http://localhost:8000](http://localhost:8000). You can access the interactive documentation at [http://localhost:8000/docs](http://localhost:8000/docs).
+3.  **Access the application:**
+    - The API will be available at [http://localhost:8000](http://localhost:8000). You can access the interactive documentation at [http://localhost:8000/docs](http://localhost:8000/docs).
+    - The Web UI will be available at [http://localhost:3000](http://localhost:3000).
 
 4.  **Cleaning up:**
     To remove the containers and volumes, run:
@@ -72,19 +84,21 @@ This is the easiest way to get the application up and running.
 
 ### Local Development Setup
 
-1.  **Clone the repository:**
+**Clone the repository:**
     ```bash
     git clone https://github.com/joaodaher/wire-scout.git
     cd wire-scout
     ```
 
-2.  **Install dependencies:**
+#### Backend
+
+1.  **Install dependencies:**
     Use the `Makefile` to install all required dependencies.
     ```bash
     make dependencies
     ```
 
-3.  **Run the application:**
+2.  **Run the application:**
     You'll need a running MongoDB instance. You can start one using Docker:
     ```bash
     docker-compose up -d mongo
@@ -102,6 +116,29 @@ This is the easiest way to get the application up and running.
     ```bash
     make run-crawler
     ```
+
+#### Frontend
+
+1.  **Navigate to the web directory:**
+    ```bash
+    cd web
+    ```
+
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+
+3.  **Run the development server:**
+    ```bash
+    npm run dev
+    ```
+    Alternatively, you can use the `Makefile` command from the root directory:
+    ```bash
+    make run-web
+    ```
+    The web app will be available at [http://localhost:5173](http://localhost:5173).
+
 
 ## Usage
 
