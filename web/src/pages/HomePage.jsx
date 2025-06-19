@@ -14,6 +14,10 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { styled } from '@mui/material/styles';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import CloseIcon from '@mui/icons-material/Close';
 
 const drawerWidth = 300;
 const PAGE_SIZE = 10;
@@ -69,9 +73,18 @@ const HomePage = () => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [filters, setFilters] = useState({});
+  const [selectedArticle, setSelectedArticle] = useState(null);
 
   const handleDrawerToggle = () => {
     setOpen(!open);
+  };
+
+  const handleArticleClick = (article) => {
+    setSelectedArticle(article);
+  };
+
+  const handleClose = () => {
+    setSelectedArticle(null);
   };
 
   const fetchArticles = useCallback(async (newFilters, pageNum) => {
@@ -156,9 +169,36 @@ const HomePage = () => {
           loader={<Spinner />}
           endMessage={<NoArticles />}
         >
-          <ArticleList articles={articles} />
+          <ArticleList articles={articles} onArticleClick={handleArticleClick} />
         </InfiniteScroll>
       </Main>
+      {selectedArticle && (
+        <Dialog open={!!selectedArticle} onClose={handleClose} fullWidth maxWidth="md">
+          <DialogTitle>
+            {selectedArticle.title}
+            <IconButton
+              aria-label="close"
+              onClick={handleClose}
+              sx={{
+                position: 'absolute',
+                right: 8,
+                top: 8,
+                color: (theme) => theme.palette.grey[500],
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
+          </DialogTitle>
+          <DialogContent dividers>
+            <Typography gutterBottom color="text.secondary">
+              {selectedArticle.news_provided_by} - {new Date(selectedArticle.date).toLocaleString()}
+            </Typography>
+            <Typography sx={{ fontFamily: 'Georgia, serif', fontSize: '1.1rem', lineHeight: 1.6 }}>
+              {selectedArticle.content}
+            </Typography>
+          </DialogContent>
+        </Dialog>
+      )}
     </Box>
   );
 };

@@ -2,37 +2,55 @@ import React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import CardActionArea from '@mui/material/CardActionArea';
+import Box from '@mui/material/Box';
 
-const ArticleCard = ({ article }) => {
+const ArticleCard = ({ article, onClick }) => {
   return (
-    <Card sx={{ height: '100%' }}>
-      <CardContent>
-        <Typography variant="h5" component="div">
-          {article.title}
-        </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          {article.news_provided_by}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {new Date(article.date).toLocaleString()}
-        </Typography>
-      </CardContent>
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          <Typography>Show Content</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>{article.content}</Typography>
-        </AccordionDetails>
-      </Accordion>
+    <Card
+      elevation={2}
+      sx={{
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        transition: 'box-shadow 0.3s ease-in-out',
+        '&:hover': {
+          boxShadow: 8,
+        },
+      }}
+    >
+      <CardActionArea
+        onClick={() => onClick(article)}
+        sx={{ height: '100%', display: 'flex' }}
+      >
+        <CardContent sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+          <Typography
+            variant="h6"
+            component="h2"
+            sx={{
+              fontWeight: '600',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              display: '-webkit-box',
+              WebkitLineClamp: '3',
+              WebkitBoxOrient: 'vertical',
+              lineHeight: 1.4,
+              mb: 1,
+            }}
+          >
+            {article.title}
+          </Typography>
+
+          <Box sx={{ marginTop: 'auto' }}>
+            <Typography variant="body2" color="primary" sx={{ fontWeight: 'bold', mt: 1 }}>
+              {article.news_provided_by}
+            </Typography>
+            <Typography variant="caption" color="text.secondary">
+              {new Date(article.date).toLocaleString()}
+            </Typography>
+          </Box>
+        </CardContent>
+      </CardActionArea>
     </Card>
   );
 };
