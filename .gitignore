@@ -4,3 +4,5 @@
 *.pyc
 
 .coverage
+
+node_modules/
