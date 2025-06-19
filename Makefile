@@ -34,5 +34,9 @@ run-crawler:
 	@echo "Running crawler ..."
 	uv run python -m crawler.main
 
+run-api:
+	@echo "Running API ..."
+	uv run uvicorn api.main:app --reload
+
 
 .PHONY: setup dependencies update test check lint
