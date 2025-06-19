@@ -147,6 +147,19 @@ class TestArticlesEndpoints(unittest.TestCase):
         for received_item, article in zip(items, article_with_date):
             self.assertContract(received_item, article)
 
+    def test_get_articles_with_skip_and_limit(self):
+        article_with_title = ArticleFactory.create_batch(10)
+
+        response = self.client.get(self.url + "?skip=3&limit=4")
+        self.assertEqual(200, response.status_code)
+
+        items = response.json()["items"]
+        self.assertEqual(4, len(items))
+
+        expected_items = article_with_title[3:7]  # items 4, 5, 6, 7
+        for received_item, article in zip(items, expected_items):
+            self.assertContract(received_item, article)
+
     def test_get_articles_filter_by_date_range_invalid_date(self):
         response = self.client.get(self.url + "?start_date=invalid&end_date=invalid")
         self.assertEqual(422, response.status_code)

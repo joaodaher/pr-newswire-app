@@ -21,9 +21,9 @@ class MongoRepository:
         result = articles_collection.insert_one(document)
         return result.inserted_id
 
-    def get_articles(self, query: dict[str, Any]) -> Generator[Article]:
+    def get_articles(self, query: dict[str, Any], skip: int = 0, limit: int = 50) -> Generator[Article]:
         articles_collection = self._db.articles
-        articles_cursor: Cursor = articles_collection.find(query)
+        articles_cursor: Cursor = articles_collection.find(query).skip(skip).limit(limit)
         for article in articles_cursor:
             yield Article(
                 title=article.get("title", ""),
@@ -38,7 +38,9 @@ def get_database(
     database_name: str | None = None,
     uri: str | None = None,
 ) -> MongoRepository:
-    db_name = database_name or os.getenv("MONGO_DATABASE", "wire-scout")
+    db_name = database_name or os.getenv("MONGO_DATABASE")
+    if not db_name:
+        db_name = "wire-scout"
 
     mongo_uri = uri or os.getenv("MONGO_URI")
     return MongoRepository(
