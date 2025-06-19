@@ -3,7 +3,7 @@ setup:
 
 dependencies:
 	@make setup
-	@uv sync --group test --group crawler --group storage
+	@uv sync --group test --group crawler --group storage --group api
 
 update:
 	@uv lock --upgrade
@@ -33,6 +33,10 @@ unit:
 run-crawler:
 	@echo "Running crawler ..."
 	uv run python -m crawler.main
+
+run-api:
+	@echo "Running API ..."
+	uv run uvicorn api.main:app --reload
 
 
 .PHONY: setup dependencies update test check lint
