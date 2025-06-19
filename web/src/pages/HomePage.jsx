@@ -2,6 +2,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import Filters from '../components/Filters';
 import ArticleList from '../components/ArticleList';
+import Spinner from '../components/Spinner';
+import NoArticles from '../components/NoArticles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -11,8 +13,10 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { styled } from '@mui/material/styles';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 const drawerWidth = 300;
+const PAGE_SIZE = 10;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -62,35 +66,48 @@ const HomePage = () => {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(true);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [filters, setFilters] = useState({});
 
   const handleDrawerToggle = () => {
     setOpen(!open);
   };
 
-  const fetchArticles = useCallback(async (currentFilters) => {
+  const fetchArticles = useCallback(async (newFilters, pageNum) => {
     setLoading(true);
     try {
-      const params = new URLSearchParams({ limit: 50 });
+      const params = new URLSearchParams({
+        limit: PAGE_SIZE,
+        skip: (pageNum - 1) * PAGE_SIZE,
+      });
+      const currentFilters = newFilters || filters;
       for (const key in currentFilters) {
         if (currentFilters[key]) {
           params.append(key, currentFilters[key]);
         }
       }
       const response = await axios.get(`http://0.0.0.0:8000/v1/articles?${params.toString()}`);
-      setArticles(response.data.items);
+      const newArticles = response.data.items;
+
+      setArticles((prevArticles) => (pageNum === 1 ? newArticles : [...prevArticles, ...newArticles]));
+      setHasMore(newArticles.length === PAGE_SIZE);
+      setPage(pageNum + 1);
     } catch (error) {
       console.error('Error fetching articles:', error);
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [filters]);
 
   useEffect(() => {
-    fetchArticles({});
-  }, [fetchArticles]);
+    fetchArticles(filters, 1);
+  }, [filters]);
 
   const handleSearch = (newFilters) => {
-    fetchArticles(newFilters);
+    setFilters(newFilters);
+    setPage(1);
+    setArticles([]);
   };
 
   return (
@@ -132,7 +149,15 @@ const HomePage = () => {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        <ArticleList articles={articles} loading={loading} />
+        <InfiniteScroll
+          dataLength={articles.length}
+          next={() => fetchArticles(filters, page)}
+          hasMore={hasMore}
+          loader={<Spinner />}
+          endMessage={<NoArticles />}
+        >
+          <ArticleList articles={articles} />
+        </InfiniteScroll>
       </Main>
     </Box>
   );
