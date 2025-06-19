@@ -1,6 +1,6 @@
-[![Github CI](https://github.com/joaodaher/pr-newswire-app/workflows/Github%20CI/badge.svg)](https://github.com/joaodaher/pr-newswire-app/actions)
-[![Maintainability](https://qlty.sh/badges/7614d4be-0c5f-475d-9508-03b8dd4d1072/maintainability.svg)](https://qlty.sh/gh/joaodaher/projects/pr-newswire-app)
-[![Code Coverage](https://qlty.sh/badges/7614d4be-0c5f-475d-9508-03b8dd4d1072/test_coverage.svg)](https://qlty.sh/gh/joaodaher/projects/pr-newswire-app)
+[![Github CI](https://github.com/joaodaher/wire-scout/workflows/Github%20CI/badge.svg)](https://github.com/joaodaher/wire-scout/actions)
+[![Maintainability](https://qlty.sh/badges/7614d4be-0c5f-475d-9508-03b8dd4d1072/maintainability.svg)](https://qlty.sh/gh/joaodaher/projects/wire-scout)
+[![Code Coverage](https://qlty.sh/badges/7614d4be-0c5f-475d-9508-03b8dd4d1072/test_coverage.svg)](https://qlty.sh/gh/joaodaher/projects/wire-scout)
 
 [![python](https://img.shields.io/badge/python-3.13-blue.svg)]()
 [![FastAPI](https://img.shields.io/badge/FastAPI-green.svg)]()
@@ -50,8 +50,8 @@ This is the easiest way to get the application up and running.
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/joaodaher/pr-newswire-app.git
-    cd pr-newswire-app
+    git clone https://github.com/joaodaher/wire-scout.git
+    cd wire-scout
     ```
 
 2.  **Build and start the services:**
@@ -74,8 +74,8 @@ This is the easiest way to get the application up and running.
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/joaodaher/pr-newswire-app.git
-    cd pr-newswire-app
+    git clone https://github.com/joaodaher/wire-scout.git
+    cd wire-scout
     ```
 
 2.  **Install dependencies:**
@@ -244,6 +244,17 @@ The project implements best practices for development efficiency:
 
 This foundation makes Wire Scout not just a PR Newswire crawler, but a **platform for news aggregation** that can grow to support any number of sources while maintaining high code quality and reliability.
 
+
+## Development Process
+
+Before starting, the roadmap cover estimation (in squares, that can be any unit you want) of each task to delivery this project.
+
+![image](https://github.com/user-attachments/assets/a7f7869d-4e80-46e5-939e-df5870f71439)
+
+
+The [Pull Requests](https://github.com/joaodaher/wire-scout/pulls?q=is%3Apr+is%3Aclosed) roughly state these major tasks.
+
+Check out each one of them, and their atomic commits, to see how the development process was.
 
 
 ## Next Steps
