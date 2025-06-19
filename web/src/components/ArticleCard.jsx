@@ -1,17 +1,39 @@
 import React from 'react';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const ArticleCard = ({ article }) => {
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md">
-      <h2 className="text-xl font-bold mb-2">{article.title}</h2>
-      <p className="text-gray-600 mb-2">
-        <span className="font-semibold">News Provider:</span> {article.news_provided_by}
-      </p>
-      <p className="text-gray-600 mb-2">
-        <span className="font-semibold">Date:</span> {new Date(article.date).toLocaleString()}
-      </p>
-      <p className="text-gray-700">{article.content}</p>
-    </div>
+    <Card sx={{ height: '100%' }}>
+      <CardContent>
+        <Typography variant="h5" component="div">
+          {article.title}
+        </Typography>
+        <Typography sx={{ mb: 1.5 }} color="text.secondary">
+          {article.news_provided_by}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {new Date(article.date).toLocaleString()}
+        </Typography>
+      </CardContent>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          <Typography>Show Content</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>{article.content}</Typography>
+        </AccordionDetails>
+      </Accordion>
+    </Card>
   );
 };
 

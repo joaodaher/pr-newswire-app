@@ -1,12 +1,17 @@
 import React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
 
 const Header = () => {
   return (
-    <header className="bg-gray-800 text-white p-4 shadow-md">
-      <div className="container mx-auto">
-        <h1 className="text-3xl font-bold">Wire Scout</h1>
-      </div>
-    </header>
+    <AppBar position="sticky">
+      <Toolbar>
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          Wire Scout
+        </Typography>
+      </Toolbar>
+    </AppBar>
   );
 };
 

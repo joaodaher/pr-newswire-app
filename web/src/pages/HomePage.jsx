@@ -3,6 +3,9 @@ import axios from 'axios';
 import Header from '../components/Header';
 import Filters from '../components/Filters';
 import ArticleList from '../components/ArticleList';
+import Container from '@mui/material/Container';
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
 
 const HomePage = () => {
   const [articles, setArticles] = useState([]);
@@ -35,13 +38,14 @@ const HomePage = () => {
   };
 
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      <CssBaseline />
       <Header />
-      <main className="container mx-auto p-4">
+      <Container component="main" sx={{ mt: 4, mb: 4, flexGrow: 1 }}>
         <Filters onSearch={handleSearch} />
         <ArticleList articles={articles} loading={loading} />
-      </main>
-    </div>
+      </Container>
+    </Box>
   );
 };
 

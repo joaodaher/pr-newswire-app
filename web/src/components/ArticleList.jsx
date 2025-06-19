@@ -2,6 +2,7 @@ import React from 'react';
 import ArticleCard from './ArticleCard';
 import NoArticles from './NoArticles';
 import Spinner from './Spinner';
+import Grid from '@mui/material/Grid';
 
 const ArticleList = ({ articles, loading }) => {
   if (loading) {
@@ -13,11 +14,13 @@ const ArticleList = ({ articles, loading }) => {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <Grid container spacing={2}>
       {articles.map((article) => (
-        <ArticleCard key={article.id} article={article} />
+        <Grid item xs={12} sm={6} md={4} key={article.id}>
+          <ArticleCard article={article} />
+        </Grid>
       ))}
-    </div>
+    </Grid>
   );
 };
 

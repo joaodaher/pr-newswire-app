@@ -1,4 +1,11 @@
 import React, { useState, useCallback } from 'react';
+import TextField from '@mui/material/TextField';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
 
 const debounce = (func, delay) => {
   let timeout;
@@ -13,8 +20,8 @@ const Filters = ({ onSearch }) => {
     title: '',
     content: '',
     news_provider: '',
-    start_date: '',
-    end_date: '',
+    start_date: null,
+    end_date: null,
   });
 
   const debouncedOnSearch = useCallback(debounce(onSearch, 500), [onSearch]);
@@ -31,51 +38,83 @@ const Filters = ({ onSearch }) => {
     });
   };
 
+  const handleDateChange = (name, value) => {
+    setFilters((prevFilters) => {
+      let newDate = value;
+      if (newDate) {
+        if (name === 'start_date') {
+          newDate = newDate.startOf('day');
+        } else if (name === 'end_date') {
+          newDate = newDate.endOf('day');
+        }
+      }
+
+      const newFilters = {
+        ...prevFilters,
+        [name]: newDate ? newDate.toISOString() : null,
+      };
+      debouncedOnSearch(newFilters);
+      return newFilters;
+    });
+  };
+
   return (
-    <div className="p-4 bg-gray-100 rounded-lg shadow-md mb-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <input
-          type="text"
-          name="title"
-          placeholder="Filter by title"
-          value={filters.title}
-          onChange={handleInputChange}
-          className="p-2 border rounded-md"
-        />
-        <input
-          type="text"
-          name="content"
-          placeholder="Filter by content"
-          value={filters.content}
-          onChange={handleInputChange}
-          className="p-2 border rounded-md"
-        />
-        <input
-          type="text"
-          name="news_provider"
-          placeholder="Filter by news provider"
-          value={filters.news_provider}
-          onChange={handleInputChange}
-          className="p-2 border rounded-md"
-        />
-        <div className="flex gap-2">
-          <input
-            type="datetime-local"
-            name="start_date"
-            value={filters.start_date}
-            onChange={handleInputChange}
-            className="p-2 border rounded-md w-full"
-          />
-          <input
-            type="datetime-local"
-            name="end_date"
-            value={filters.end_date}
-            onChange={handleInputChange}
-            className="p-2 border rounded-md w-full"
-          />
-        </div>
-      </div>
-    </div>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <Box sx={{ p: 2, backgroundColor: 'grey.100', borderRadius: 1, mb: 4 }}>
+        <Grid container spacing={2} alignItems="center">
+          <Grid item xs={12} md={3}>
+            <TextField
+              fullWidth
+              name="title"
+              label="Filter by title"
+              value={filters.title}
+              onChange={handleInputChange}
+              size="small"
+            />
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <TextField
+              fullWidth
+              name="content"
+              label="Filter by content"
+              value={filters.content}
+              onChange={handleInputChange}
+              size="small"
+            />
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <TextField
+              fullWidth
+              name="news_provider"
+              label="Filter by news provider"
+              value={filters.news_provider}
+              onChange={handleInputChange}
+              size="small"
+            />
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <Grid container spacing={2}>
+              <Grid item xs={6}>
+                <DatePicker
+                  label="Start date"
+                  value={filters.start_date ? dayjs(filters.start_date) : null}
+                  onChange={(newValue) => handleDateChange('start_date', newValue)}
+                  slotProps={{ textField: { fullWidth: true, size: 'small' } }}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <DatePicker
+                  label="End date"
+                  value={filters.end_date ? dayjs(filters.end_date) : null}
+                  onChange={(newValue) => handleDateChange('end_date', newValue)}
+                  slotProps={{ textField: { fullWidth: true, size: 'small' } }}
+                />
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Box>
+    </LocalizationProvider>
   );
 };
 
