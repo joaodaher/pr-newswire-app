@@ -14,8 +14,7 @@ class Browser:
     @classmethod
     def get_news_links(cls) -> Generator[str]:
         for sitemap_url in cls._get_sitemap_urls(SITEMAP_URL):
-            if sitemap_url:
-                yield from cls._extract_article_links(sitemap_url)
+            yield from cls._extract_article_links(sitemap_url)
 
     @classmethod
     def _get_sitemap_urls(cls, sitemap_url: str) -> list[str]:
