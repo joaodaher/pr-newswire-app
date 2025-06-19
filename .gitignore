@@ -1,7 +1,5 @@
 
-api/.idea/
-
-crawler/.idea/
+.idea/
 
 *.pyc
 
