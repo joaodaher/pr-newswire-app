@@ -38,6 +38,10 @@ run-api:
 	@echo "Running API ..."
 	uv run uvicorn api.main:app --reload
 
+run-web:
+	@echo "Running web app ..."
+	@cd web && npm run dev
+
 # Docker commands
 run-all:
 	@echo "Building and starting Docker services..."
