@@ -1,0 +1,8 @@
+
+api/.idea/
+
+crawler/.idea/
+
+*.pyc
+
+.coverage

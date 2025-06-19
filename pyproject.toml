@@ -1,0 +1,36 @@
+[project]
+name = "wire-scout"
+version = "0.1.0"
+description = "API for PR Newswire content"
+requires-python = ">=3.13"
+dependencies = [
+
+]
+
+[dependency-groups]
+test = [
+    "pytest>=8.4.1",
+    "pytest-cov>=6.2.1",
+    "pytest-random-order>=1.1.1",
+    "pytest-sugar>=1.0.0",
+    "responses>=0.25.7",
+    "ruff>=0.12.0",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["RUF", "I", "PL", "F", "COM", "UP", "T10", "T20", "DTZ", "SIM", "TID", "PTH", "ERA", "TRY"]
+ignore = ["COM812","COM819", "PLR2004", "PLR0911", "PLR0912", "PLR0913", "PLR0915", "TRY003", "RUF012"]
+
+
+[tool.pytest.ini_options]
+addopts = "--random-order --cov"
+python_files = ["test_*.py"]
+
+
+[tool.coverage.run]
+branch = true
+source = ["."]
