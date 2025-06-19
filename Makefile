@@ -38,5 +38,14 @@ run-api:
 	@echo "Running API ..."
 	uv run uvicorn api.main:app --reload
 
+# Docker commands
+run-all:
+	@echo "Building and starting Docker services..."
+	@docker-compose up --build
 
-.PHONY: setup dependencies update test check lint
+clean-up:
+	@echo "Stopping services and removing volumes..."
+	@docker-compose down --volumes
+
+
+.PHONY: setup dependencies update test check lint run-all clean-up
