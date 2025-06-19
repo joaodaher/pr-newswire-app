@@ -30,4 +30,9 @@ unit:
 	@echo "Running unit tests ..."
 	uv run pytest
 
+run-crawler:
+	@echo "Running crawler ..."
+	uv run python -m crawler.main
+
+
 .PHONY: setup dependencies update test check lint

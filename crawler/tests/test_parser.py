@@ -5,8 +5,8 @@ from pathlib import Path
 
 import responses
 
-from crawler.article import Article
 from crawler.parser import NewsParser
+from models.article import Article
 
 
 class TestNewsParserCornerCases(unittest.TestCase):

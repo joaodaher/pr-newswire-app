@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 from bs4.element import PageElement
 from dateutil import parser
 
-from crawler.article import Article
+from models.article import Article
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 
