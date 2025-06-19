@@ -3,7 +3,7 @@ setup:
 
 dependencies:
 	@make setup
-	@uv sync --group test
+	@uv sync --group test --group crawler
 
 update:
 	@uv lock --upgrade

@@ -8,6 +8,12 @@ dependencies = [
 ]
 
 [dependency-groups]
+crawler = [
+    "beautifulsoup4>=4.13.4",
+    "lxml>=5.4.0",
+    "python-dateutil>=2.9.0.post0",
+    "requests>=2.32.4",
+]
 test = [
     "pytest>=8.4.1",
     "pytest-cov>=6.2.1",
