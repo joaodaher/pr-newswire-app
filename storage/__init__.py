@@ -1,5 +1,3 @@
-from storage.mongo import get_database
+from storage.mongo import MongoRepository, get_database
 
-MongoRepository = get_database()
-
-__all__ = ["MongoRepository"]
+__all__ = ["MongoRepository", "get_database"]
