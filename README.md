@@ -3,10 +3,14 @@
 [![Code Coverage](https://qlty.sh/badges/7614d4be-0c5f-475d-9508-03b8dd4d1072/test_coverage.svg)](https://qlty.sh/gh/joaodaher/projects/wire-scout)
 
 # Wire Scout
+![logo-wide](https://github.com/user-attachments/assets/ee70caf9-fe7b-4f30-a2ed-1ec6469b05a3)
+
 
 ## Overview
 
 Wire Scout is a Python-based web scraping application designed to extract and store news articles from PR Newswire. It consists of a web crawler that fetches article data and a FastAPI-powered API to query the stored articles. The entire application is containerized with Docker for easy setup and deployment.
+
+![web-ui](https://github.com/user-attachments/assets/d4174ec8-3b9f-4334-bdde-420a76b60552)
 
 ## Tech Stack
 
@@ -21,6 +25,7 @@ Wire Scout is a Python-based web scraping application designed to extract and st
 [![uv](https://img.shields.io/badge/uv-0.7-blue.svg?logo=uv)](https://github.com/astral-sh/uv)
 [![pytest](https://img.shields.io/badge/pytest-7.4-blue.svg?logo=pytest)](https://pytest.org/)
 [![ruff](https://img.shields.io/badge/ruff-0.12-blue.svg?logo=ruff)](https://github.com/astral-sh/ruff)
+
 
 ### Frontend Framework & UI
 [![node](https://img.shields.io/badge/node-20-green.svg?logo=node.js)](https://nodejs.org/en)
